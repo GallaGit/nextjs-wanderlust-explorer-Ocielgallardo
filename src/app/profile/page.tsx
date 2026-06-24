@@ -14,13 +14,15 @@ export default function ProfilePage() {
   const { favoriteCount } = useFavorites();
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <header>
-        <h1 className="text-3xl font-bold text-stone-900">Perfil</h1>
+        <h1 className="font-display text-2xl font-bold text-on-surface sm:text-[32px] sm:leading-10">
+          Perfil
+        </h1>
       </header>
 
-      <section className="grid gap-6 rounded-3xl border border-stone-200 bg-white p-6 shadow-sm sm:grid-cols-[auto_1fr] sm:p-8">
-        <div className="relative h-28 w-28 overflow-hidden rounded-full bg-stone-100">
+      <section className="grid gap-6 rounded-xl bg-surface p-5 shadow-ambient sm:grid-cols-[auto_1fr] sm:p-8">
+        <div className="relative h-28 w-28 overflow-hidden rounded-full bg-surface-container-low">
           <Image
             src={MOCK_USER.avatar}
             alt={MOCK_USER.name}
@@ -32,20 +34,22 @@ export default function ProfilePage() {
 
         <div className="space-y-3">
           <div>
-            <h2 className="text-2xl font-semibold text-stone-900">
+            <h2 className="font-display text-2xl font-bold text-on-surface">
               {MOCK_USER.name}
             </h2>
-            <p className="text-sm font-medium text-teal-700">{MOCK_USER.role}</p>
+            <p className="text-sm font-semibold text-secondary">{MOCK_USER.role}</p>
           </div>
-          <p className="max-w-2xl text-stone-600">{MOCK_USER.bio}</p>
+          <p className="max-w-2xl text-base leading-6 text-on-surface-variant">
+            {MOCK_USER.bio}
+          </p>
         </div>
       </section>
 
-      <section className="rounded-2xl border border-teal-100 bg-teal-50 p-6">
-        <h3 className="text-lg font-semibold text-teal-900">Resumen</h3>
-        <p className="mt-2 text-stone-700">
+      <section className="rounded-xl border border-outline-variant bg-secondary-container/30 p-6">
+        <h3 className="font-display text-xl font-bold text-on-surface">Resumen</h3>
+        <p className="mt-2 text-base leading-6 text-on-surface-variant">
           Tienes{" "}
-          <span className="font-semibold text-teal-800">{favoriteCount}</span>{" "}
+          <span className="font-bold text-secondary">{favoriteCount}</span>{" "}
           experiencia{favoriteCount === 1 ? "" : "s"} guardada
           {favoriteCount === 1 ? "" : "s"} como favorita
           {favoriteCount === 1 ? "" : "s"}.

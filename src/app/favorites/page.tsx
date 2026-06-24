@@ -12,10 +12,12 @@ export default function FavoritesPage() {
   );
 
   return (
-    <div className="space-y-8">
-      <header className="space-y-2">
-        <h1 className="text-3xl font-bold text-stone-900">Favoritos</h1>
-        <p className="text-stone-600">
+    <div className="space-y-12">
+      <header className="space-y-3">
+        <h1 className="font-display text-2xl font-bold text-on-surface sm:text-[32px] sm:leading-10">
+          Favoritos
+        </h1>
+        <p className="text-base leading-6 text-on-surface-variant">
           {favoriteExperiences.length} experiencia
           {favoriteExperiences.length === 1 ? "" : "s"} guardada
           {favoriteExperiences.length === 1 ? "" : "s"} en esta sesion
@@ -23,16 +25,16 @@ export default function FavoritesPage() {
       </header>
 
       {favoriteExperiences.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-stone-300 bg-white px-6 py-16 text-center">
-          <h2 className="text-lg font-semibold text-stone-900">
+        <div className="rounded-xl border border-dashed border-outline-variant bg-surface px-6 py-16 text-center">
+          <h2 className="font-display text-xl font-bold text-on-surface">
             Aun no tienes favoritos
           </h2>
-          <p className="mt-2 text-sm text-stone-500">
+          <p className="mt-2 text-sm text-on-surface-variant">
             Marca experiencias con el corazon para verlas aqui.
           </p>
           <Link
             href="/experiences"
-            className="mt-6 inline-flex rounded-full bg-teal-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-800"
+            className="mt-6 inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary transition hover:opacity-90"
           >
             Explorar experiencias
           </Link>

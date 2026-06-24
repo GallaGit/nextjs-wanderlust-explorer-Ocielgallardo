@@ -48,16 +48,28 @@ src/
 ├── components/
 │   ├── layout/Navbar.tsx
 │   ├── experiences/
+│   │   ├── ExperiencesExplorer.tsx
+│   │   ├── ExperienceDetailActions.tsx
+│   │   ├── SearchBar.tsx
+│   │   ├── FilterBar.tsx
+│   │   ├── ExperienceGrid.tsx
+│   │   ├── ExperienceCard.tsx
+│   │   └── FavoriteButton.tsx
 │   └── favorites/FavoritesProvider.tsx
+├── hooks/
+│   └── useFilters.ts
 ├── data/experiences.ts
-├── lib/filterExperiences.ts
+├── lib/
+│   ├── filterExperiences.ts
+│   └── experienceUrl.ts
 └── types/experience.ts
 ```
 
 ## Decisiones tecnicas
 
-- **Filtros en URL:** `search`, `category` y `destination` viven como query params. La pagina `/experiences` los lee en servidor y los componentes client actualizan la URL con `router.push`.
-- **Favoritos:** estado global con `useState` en `FavoritesProvider` (sin `localStorage` ni backend).
+- **Filtros en URL:** `search`, `category` y `destination` viven como query params. `SearchBar` y `FilterBar` actualizan la URL con `router.push`; `useFilters` lee los params con `useSearchParams()` y sincroniza los resultados filtrados mediante `useEffect`.
+- **Custom hook `useFilters`:** encapsula la lectura de query params y el filtrado de experiencias reutilizando `filterExperiences`. Lo consume `ExperiencesExplorer`, un Client Component envuelto en `<Suspense>` desde `experiences/page.tsx`.
+- **Favoritos:** `useState` en `FavoritesProvider` (sin `localStorage` ni backend). Los componentes padre (`ExperienceGrid`, `ExperienceDetailActions`) llaman a `useFavorites()` y pasan `isFavorite` y `onToggleFavorite` como props a `ExperienceCard` y `FavoriteButton`.
 - **Busqueda:** regex case-insensitive sobre el titulo (`/term/i`), con escape de caracteres especiales.
 - **Destino:** el dataset incluye `country` para filtrar por pais (`?destination=Croatia`).
 
@@ -81,6 +93,11 @@ src/
 - **Que reutilizo:** valoracion con estrella en cada tarjeta y en la pagina de detalle.
 - **Inspiracion:** resaltar la valoracion como senal de calidad en cada experiencia.
 
+## Brand & Style
+- **La personalidad** de la marca es aventurera y sofisticada a la vez, logrando un equilibrio entre la emoción del descubrimiento y la fiabilidad de un servicio premium. Este sistema de diseño adopta un estilo minimalista con toques de vidrio para garantizar que la fotografía de viajes de alta calidad siga siendo el elemento central.
+
+- **La respuesta emocional** debe ser de inspiración y claridad. Mediante el uso de amplios espacios en blanco y una estrategia de capas de interfaz de usuario refinada, la interfaz se integra armoniosamente para que el contenido del destino respire. Las transiciones sutiles y la tipografía de alta gama elevan la experiencia de una simple herramienta a un producto de estilo de vida premium.
+
 ## Checklist
 
 - [x] Home con hero y boton a `/experiences`
@@ -92,5 +109,7 @@ src/
 - [x] Inputs prerrellenados al cargar desde URL
 - [x] Detalle en `/experiences/[id]`
 - [x] Favoritos con estado superior sin persistencia
+- [x] Favoritos pasados como props (`isFavorite`, `onToggleFavorite`)
+- [x] Custom hook `useFilters` para filtrado sincronizado con query params
 - [x] Paginas `/favorites` y `/profile`
 - [x] README con design references

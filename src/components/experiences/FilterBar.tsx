@@ -35,29 +35,46 @@ export function FilterBar({
   };
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
-      <label className="block">
-        <span className="mb-2 block text-sm font-medium text-stone-700">
+    <div className="space-y-6">
+      <div>
+        <span className="mb-3 block text-sm font-semibold tracking-wide text-on-surface-variant uppercase">
           Categoria
         </span>
-        <select
-          value={initialCategory}
-          onChange={(event) =>
-            updateFilters({ category: event.target.value })
-          }
-          className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-900 outline-none ring-teal-500 transition focus:ring-2"
-        >
-          <option value="">Todas</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-      </label>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => updateFilters({ category: "" })}
+            className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+              initialCategory === ""
+                ? "border-secondary bg-secondary text-on-secondary"
+                : "border-surface-dim bg-surface text-on-surface-variant hover:border-outline"
+            }`}
+          >
+            Todas
+          </button>
+          {categories.map((category) => {
+            const isActive = initialCategory === category;
+
+            return (
+              <button
+                key={category}
+                type="button"
+                onClick={() => updateFilters({ category })}
+                className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+                  isActive
+                    ? "border-secondary bg-secondary text-on-secondary"
+                    : "border-surface-dim bg-surface text-on-surface-variant hover:border-outline"
+                }`}
+              >
+                {category}
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
       <label className="block">
-        <span className="mb-2 block text-sm font-medium text-stone-700">
+        <span className="mb-3 block text-sm font-semibold tracking-wide text-on-surface-variant uppercase">
           Destino
         </span>
         <select
@@ -65,7 +82,7 @@ export function FilterBar({
           onChange={(event) =>
             updateFilters({ destination: event.target.value })
           }
-          className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-900 outline-none ring-teal-500 transition focus:ring-2"
+          className="w-full rounded-lg border border-surface-dim bg-surface px-3 py-3 text-base text-on-surface outline-none transition focus:border-secondary focus:ring-4 focus:ring-secondary/15 sm:max-w-sm"
         >
           <option value="">Todos</option>
           {countries.map((country) => (
